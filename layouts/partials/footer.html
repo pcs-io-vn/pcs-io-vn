@@ -1,0 +1,23 @@
+{{- $pctx := . }}
+<div id="footer">
+
+<span>
+    &copy;
+    {{- time.Now | time.Format "2006" }}
+</span>
+
+{{- $menus := .Site.Menus.footer }}
+{{- range $menus }}
+{{ $url := partial "functions/getmenuurl.html" (dict "pctx" $pctx "entry" .) }}
+<a href="{{- $url -}}"
+    {{ with .Params.targetBlank }}target="_blank"{{ end -}}
+>
+    {{- with .Params.iconClass }}
+        <i class="{{- . -}}"></i>
+    {{- else }}
+        {{- or (i18n (upper .Identifier)) .Name | safeHTML -}}
+    {{- end -}}
+</a>
+{{- end }}
+
+</div>
